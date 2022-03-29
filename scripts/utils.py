@@ -282,3 +282,4 @@ def _step6(state):
         state.C[np.logical_not(state.row_uncovered)] += minval
         state.C[:, state.col_uncovered] -= minval
     return _step4
+

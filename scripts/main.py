@@ -21,7 +21,7 @@ def main():
         sys.exit()
     person_track = sys.argv[1]
 
-    model_path = "scripts/weights/yolov5n-0.5.pt"
+    model_path = "weights/yolov5n-0.5.pt"
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     #init detector
     model = detect_face.load_model(model_path, device)

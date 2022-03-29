@@ -55,12 +55,19 @@ class Sort:
       for t,trk in enumerate(self.trackers):
         if(t not in unmatched_trks):
           d = matched[np.where(matched[:,1]==t)[0],0]
-          trk.update(dets[d,:][0], embeddings[d[0]]) ## for dlib re-intialize the trackers ?!
+          if embeddings is None:
+            trk.update(dets[d,:][0], None)
+          
+          else:
+            trk.update(dets[d,:][0], embeddings[d[0]]) ## for dlib re-intialize the trackers ?!
           
           
       #create and initialise new trackers for unmatched detections
       for i in unmatched_dets:
-        trk = KalmanBoxTracker(dets[i,:], embedding=embeddings[i])
+        if embeddings is None:
+          trk = KalmanBoxTracker(dets[i,:], embedding=None)
+        else:
+          trk = KalmanBoxTracker(dets[i,:], embedding=embeddings[i])
         # trk = KalmanBoxTracker(dets[i,:])
         self.trackers.append(trk)
 
