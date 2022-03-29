@@ -3,9 +3,6 @@ import cv2
 import torch
 import pickle 
 from sort import Sort
-from facenet_pytorch import InceptionResnetV1
-from torchvision import transforms
-import sys
 import time
 import detect_face 
 import argparse
@@ -56,7 +53,7 @@ def main():
         if len(detections) == 0:
             print("No face detected sorry")
             pass
-        
+        # Waiting for camera to warm up
         if frame_num < 10:
             print("waiting for camera to get ready")
             frame_num += 1
@@ -68,8 +65,6 @@ def main():
         # Check fps
         fps = model_utils.check_fps(begin_time)
 
-        cv2.line(frame, (dim[0]//2, 0), (dim[0]//2, dim[1]), color=(0, 0, 0), thickness=3)
-        cv2.putText(frame, str(fps), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
 
         # Draw rectanges for all the detected faces    
         for d in trackers:
@@ -78,9 +73,7 @@ def main():
         left_most_ids, centroids = model_utils.leftmost_n(np.array(trackers), args.num_persons_to_track)
         if left_most_ids is None:
             pass
-        else:
-            trackers_left = trackers[left_most_ids]
-        # print(trackers)
+        
         tracking_point = model_utils.find_mean_point(centroids)
         
         if tracking_point is None:
@@ -88,7 +81,7 @@ def main():
         else:
             cv2.circle(frame, (int(tracking_point[0]),int(tracking_point[1])), radius=0, color=(0, 0, 255), thickness=3)
         
-        print((int(tracking_point[0]),int(tracking_point[1])))
+            print((int(tracking_point[0]),int(tracking_point[1])))
         
         frame_num = frame_num + 1
         cv2.imshow('out', frame)

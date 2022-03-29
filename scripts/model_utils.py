@@ -2,6 +2,7 @@ import os
 import yaml
 import numpy as np
 import time
+import torch
 
 def load_cfg(name):
     path = os.path.join("configs", name)
@@ -45,3 +46,25 @@ def find_mean_point(centroids):
         # print(centroids)
         # print(np.mean(centroids, axis=0))
         return np.mean(centroids, axis=0)
+
+def load_classes_dict(path):
+    classes_list = np.loadtxt(path, dtype=str)
+    int2labels = {int(label):cls for label, cls in classes_list}
+    return int2labels
+
+def get_cropped_faces(detections, frame, transform):
+    cropped_imges = []
+    if len(detections) == 1:
+        det = detections[0]
+        det = det.astype(int)
+        boxes, _ = det[:4], det[4]
+        cropped_img = frame[boxes[1]:boxes[3], boxes[0]: boxes[2], :]
+        cropped_img = transform(cropped_img)
+        return cropped_img.unsqueeze(0)
+    for det in detections:
+        det = det.astype(int)
+        boxes, _ = det[:4], det[4]
+        cropped_img = frame[boxes[1]:boxes[3], boxes[0]: boxes[2], :]
+        cropped_img = transform(cropped_img)
+        cropped_imges.append(cropped_img.unsqueeze(0))
+    return torch.cat(cropped_imges)

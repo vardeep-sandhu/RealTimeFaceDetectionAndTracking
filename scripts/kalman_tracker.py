@@ -39,6 +39,7 @@ class KalmanBoxTracker(object):
     self.tracking_probs = np.full((1,3), 0.5)
     self.stacked_labels = np.array([])
     # self.label = self.get_label()
+    self.classifier = pk.load(open("classifier.pkl", 'rb'))
 
   def get_label(self):
     return self.classifier.predict(self.embedding)[0]
@@ -58,8 +59,8 @@ class KalmanBoxTracker(object):
       if embedding is None:
         label = 0
       else:
-        self.classifier = pk.load(open("classifier.pkl", 'rb'))
-        label = self.classifier.predict(embedding)[0]
+        
+        label = self.classifier.predict(embedding.reshape(1, -1))
         self.stacked_labels = np.append(self.stacked_labels, label)
       # print(self.stacked_labels)
         if self.hit_streak == 11:
