@@ -18,7 +18,7 @@ def load_pkl(path):
 
 def parse_commandline():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--cfg_name', '-c', type=str)
+    parser.add_argument('--cfg_name', '-c', type=str, default="identity_tracker.yaml")
     parser.add_argument('-name', type=str)
 
     args = parser.parse_args()
