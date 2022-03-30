@@ -18,7 +18,6 @@ def capture_vid(name, vid_dir):
     frame_height = int(video.get(4))
 
     size = (frame_width, frame_height)
-
     out = cv2.VideoWriter(os.path.join(vid_dir, f'{name}.avi'), fourcc, 10.0, size)
     count = 0
     while(video.isOpened()):

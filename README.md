@@ -85,7 +85,7 @@ This automatically detects the newest class added and creates embeddings and sav
 For training the classifier (SVM) on this new dataset run this command:
 
 ```shell
-python scripts/capture_video_4_dataset.py --name class-name
+python scripts/train_classifier.py
 ```
 
 This makes a new classifier and stores it in the root directory of the project.Now this classifier can be used in classification of faces.
@@ -111,5 +111,3 @@ Here the argument `--num_persons_to_track` references to the number of persons t
 
 
 <!-- ## Results -->
-
-
