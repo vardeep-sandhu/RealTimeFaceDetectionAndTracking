@@ -172,10 +172,13 @@ dependencies:
   - zstd=1.5.0=ha4553b6_1
   - pip:
     - appdirs==1.4.4
+    - attrdict==2.0.1
     - autocfg==0.0.8
+    - cupy==10.2.0
     - cycler==0.11.0
     - dlib==19.22.1
     - facenet-pytorch==2.5.2
+    - fastrlock==0.8
     - filterpy==1.4.5
     - fonttools==4.28.5
     - gluoncv==0.10.4.post4
@@ -212,9 +215,12 @@ dependencies:
     - sklearn==0.0
     - thop==0.0.31-2005241907
     - threadpoolctl==3.0.0
+    - thundersvm==0.3.12
     - tifffile==2021.11.2
+    - tikzplotlib==0.10.1
     - torch==1.10.1
     - torchvision==0.11.2
     - tqdm==4.62.3
+    - webcolors==1.11.1
     - yacs==0.1.8
 prefix: /home/franz/anaconda3/envs/facedet
